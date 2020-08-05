@@ -1,14 +1,21 @@
 # Azure AutoML (Automated Machine Learning) integrated in a MLOps
-Here we will demonstrate how to create a multi-stages MLOps integrated with an Azure AutoML experiment.
+Here we will demonstrate how to create a multi-stage MLOps process integrated with an Azure AutoML experiment.
 
 This tutorial was created for learning purposes, please feel free to adapt the code for your needs or to suggest modifications. 😃
 
 ---
 
+The following diagram shows a high-level overview of the MLOps process using an Azure Automated Machine Learning model. We use a [notebook]() to register the **best model** based on an previously runned experiment:
+
+![mlops](images/mlops-flow.PNG?raw=true)
+
+Basically with this approach we can use different workspaces in this flow and customize our MLOps process to have for example pre-deployment conditionals or any other business requirements.
+
 ### Prerequisites:
 
 1. Have an Azure Subscription
 2. Create an Azure Machine Learning Workspace
+   1. Create and run an AutoML experiment (in our case we will use a already runned automl experiment based on Diabetes Open Dataset)
 3. Create an Azure DevOps project
 4. Install [Azure ML extension](https://marketplace.visualstudio.com/items?itemName=ms-air-aiagility.vss-services-azureml&targetId=09d19ee8-b94a-4f99-a763-11cc0fe1a111&utm_source=vstsproduct&utm_medium=ExtHubManageList) in your Azure DevOps organization (This extension will be used to connect Azure DevOps with Azure ML Workspace)
 5. A service connection configured in your Azure DevOps project (see [How to set up your service connection](#how-to-set-up-your-service-connection))
@@ -45,7 +52,7 @@ Now with the artifacts configured we can add the stages of this Release Pipeline
 
 ### QA (pre-production)
 
-In this step we will get the artifact (model) to deploy an endpoint (api) based on it. We will create some *tasks* using `az-cli` with the [machine learning extension](https://docs.microsoft.com/en-us/azure/machine-learning/reference-azure-machine-learning-cli#:~:text=The%20Azure%20Machine%20Learning%20CLI%20is%20an%20extension,allows%20you%20to%20automate%20your%20machine%20learning%20activities.).
+In this step we will get the artifact (machine learning model) to deploy an endpoint (api) based on it. We will create some *tasks* using `az-cli` with the [machine learning extension](https://docs.microsoft.com/en-us/azure/machine-learning/reference-azure-machine-learning-cli#:~:text=The%20Azure%20Machine%20Learning%20CLI%20is%20an%20extension,allows%20you%20to%20automate%20your%20machine%20learning%20activities.).
 
 Three tasks will be used:
 
@@ -71,7 +78,7 @@ To open the options to define one (or many) approvers:
 
 ### Production
 
-After the approval condition, in this step we will download the model version from QA Workspace and deploy it to Prod Workspace. It will allow us to separe the environments and can be useful to use Workspaces for example separated in two different Resources Groups.
+After the approval condition, in this step we will download the model version from QA Workspace and deploy it to Prod Workspace. It will allow us to use different environments (for example we can use two Workspaces in two different Resources Groups).
 
 Five tasks will be used:
 
@@ -114,3 +121,4 @@ When all the stages are completed we can see the **endpoints** in Azure ML Works
   
 ![complete](images/final-release.PNG?raw=true)
 
+That's it !! 😎
