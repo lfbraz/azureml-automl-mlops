@@ -33,7 +33,7 @@ Now we will add the model artifacts. We will use two sources: A **Repository sou
 
 ![Artifacts](images/artifacts.PNG?raw=true)
 
-The **Repository source** will contain your deployment configs (`aciDeploymentConfig.yml` or `aksDeploymentConfig.yml`, `conda_env_v_1_0_0.yml`, `inferenceConfig.yml` and `score.py`). In this [folder](https://github.com/lfbraz/azure-mlops/tree/master/azureml/config) we have some examples of these files.  
+The **Repository source** will contain your deployment configs (`aciDeploymentConfig.yml` or `aksDeploymentConfig.yml`, `conda_env_v_1_0_0.yml`, `inferenceConfig.yml` and `score.py`). In this [folder](https://github.com/lfbraz/azure-mlops/tree/master/azureml/config) we have some examples of these files. You can download your AutoML model as well to be able to get `conda_env*.yml` and `score.py` files.
 
 In the **Azure ML Model Artifact** we will connect the Azure DevOps with our Azure ML Workspace using the `Service Connection` we created before:
 
