@@ -1,0 +1,17 @@
+steps:
+    - task: AzureCLI@2
+      displayName: 'Deploy Model to QA (ACI)'
+      inputs:
+        azureSubscription: '<YOUR_SUBSCRIPTION>'
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+         cd $(System.DefaultWorkingDirectory)/$WORKING_DIR_QA
+         
+         MODEL_VERSION=$(az ml model list -n $MODEL_NAME_QA -g $RESOURCE_GROUP_QA -w $WORKSPACE_QA --query '[0].version')
+         echo "Model version to be deployed: " $MODEL_VERSION
+         
+         az ml model deploy -g $RESOURCE_GROUP_QA -w $WORKSPACE_QA -n $ENDPOINT_NAME_QA --model $MODEL_NAME_QA:$MODEL_VERSION --ic inferenceConfig.yml --dc aciDeploymentConfig.yml  --overwrite
+         
+         echo "Deploying model: " $MODEL_NAME_QA " in Workspace:" $WORKSPACE_QA
+    
