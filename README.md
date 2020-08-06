@@ -5,7 +5,7 @@ This tutorial was created for learning purposes, please feel free to adapt the c
 
 ---
 
-The following diagram shows a high-level overview of the MLOps process using an Azure Automated Machine Learning model. We use a [notebook]() to register the **best model** based on an previously runned experiment:
+The following diagram shows a high-level overview of the MLOps process using an Azure Automated Machine Learning model. We use a [notebook](/notebooks/automl-register-model.ipynb) to register the **best model** based on an previously runned experiment:
 
 ![mlops](images/mlops-flow.PNG?raw=true)
 
@@ -92,7 +92,7 @@ All set up 😃. Now we can configure the trigger to this **Release**.
 
 ### Trigger
 
-We can use a **Continuous deployment trigger** to create a new release every time a new AzureML model is registered: 
+We can use a **Continuous deployment trigger** to create a new release every time a new AzureML model is registered:
 
 ![Continuous deployment trigger](images/continuous-deployment.PNG?raw=true)
 
