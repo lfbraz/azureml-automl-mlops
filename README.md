@@ -120,3 +120,15 @@ When all the stages are completed we can see the **endpoints** in Azure ML Works
 ![complete](images/final-release.PNG?raw=true)
 
 That's it !! 😎
+
+### OPTIONAL: Send notifications using Logic Apps
+
+To customize the process we can create a Logic Apps flow listening for events from [Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-use-event-grid#event-types-for-azure-machine-learning) to trigger customized events. 
+
+Bellow an example of this flow:
+
+![logic apps](images/logic-apps.PNG?raw=true)
+
+When a new model is registered a list of people can be notified. The mail can be customized with dynamic content (eg: model_name, etc.):
+
+![mail logic apps](images/mail-logic-apps.PNG?raw=true)
