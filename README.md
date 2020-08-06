@@ -1,21 +1,21 @@
-# Azure AutoML (Automated Machine Learning) integrated in a MLOps
+# Azure AutoML (Automated Machine Learning) integrated with a MLOps process
 Here we will demonstrate how to create a multi-stage MLOps process integrated with an Azure AutoML experiment.
 
 This tutorial was created for learning purposes, please feel free to adapt the code for your needs or to suggest modifications. 😃
 
 ---
 
-The following diagram shows a high-level overview of the MLOps process using an Azure Automated Machine Learning model. We use a [notebook](/notebooks/automl-register-model.ipynb) to register the **best model** based on an previously runned experiment:
+The following diagram shows a high-level overview of the MLOps process using an Azure Automated Machine Learning model. We use a [notebook](/notebooks/automl-register-model.ipynb) to register the **best model** based on an previously performed experiment:
 
 ![mlops](images/mlops-flow.PNG?raw=true)
 
-Basically with this approach we can use different workspaces in this flow and customize our MLOps process to have for example pre-deployment conditionals or any other business requirements.
+Basically, with this approach, we can use different workspaces in this flow and customize our MLOps process to have for example pre-deployment conditions or any other business requirements.
 
 ### Prerequisites:
 
 1. Have an Azure Subscription
 2. Create an Azure Machine Learning Workspace
-   1. Create and run an AutoML experiment (in our case we will use a already runned automl experiment based on Diabetes Open Dataset)
+   1. Create and run an AutoML experiment (in our case we will use an already performed automl experiment based on Diabetes Open Dataset)
 3. Create an Azure DevOps project
 4. Install [Azure ML extension](https://marketplace.visualstudio.com/items?itemName=ms-air-aiagility.vss-services-azureml&targetId=09d19ee8-b94a-4f99-a763-11cc0fe1a111&utm_source=vstsproduct&utm_medium=ExtHubManageList) in your Azure DevOps organization (This extension will be used to connect Azure DevOps with Azure ML Workspace)
 5. A service connection configured in your Azure DevOps project (see [How to set up your service connection](#how-to-set-up-your-service-connection))
@@ -30,7 +30,7 @@ In your project click in *"Project settings -> Service Connections -> New servic
 
 #### Release Pipeline
 
-With the service connection we are able to create a new [Release Pipeline](https://docs.microsoft.com/en-us/azure/devops/pipelines/release/?view=azure-devops) (in your *Azure Devops project*) to deploy Azure ML models:
+With the service connection, we can create a new [Release Pipeline](https://docs.microsoft.com/en-us/azure/devops/pipelines/release/?view=azure-devops) (in your *Azure Devops project*) to deploy Azure ML models:
 
 ![New Release Pipeline](images/new-release-pipeline.PNG?raw=true)
 
@@ -52,7 +52,7 @@ Now with the artifacts configured we can add the stages of this Release Pipeline
 
 ### QA (pre-production)
 
-In this step we will get the artifact (machine learning model) to deploy an endpoint (api) based on it. We will create some *tasks* using `az-cli` with the [machine learning extension](https://docs.microsoft.com/en-us/azure/machine-learning/reference-azure-machine-learning-cli#:~:text=The%20Azure%20Machine%20Learning%20CLI%20is%20an%20extension,allows%20you%20to%20automate%20your%20machine%20learning%20activities.).
+In this step, we will get the artifact (machine learning model) to deploy an endpoint (API) based on it. We will create some *tasks* using `az-cli` with the [machine learning extension](https://docs.microsoft.com/en-us/azure/machine-learning/reference-azure-machine-learning-cli#:~:text=The%20Azure%20Machine%20Learning%20CLI%20is%20an%20extension,allows%20you%20to%20automate%20your%20machine%20learning%20activities.).
 
 Three tasks will be used:
 
@@ -60,10 +60,9 @@ Three tasks will be used:
 2. Deploy Model to QA (To deploy the model artifact to QA Workspace): `az ml model deploy`
 3. Check endpoint state (A loop to check if the endpoint is in "Healthy" state): `az ml endpoint realtime show`
 
-These tasks will use [Azure DevOps variables](https://go.microsoft.com/fwlink/?linkid=865972) to be easy to replicate to others models as well. The `.yml` files of each task can be seen in this [folder](release-tasks/qa/) and they can be used to create a *Pipeline* or a *Release Pipeline* (in this case just create an **Azure Cli Task** associated with the QA stage and add the code in `inlineScript` section of each `.yml` file).
+These tasks will use [Azure DevOps variables](https://go.microsoft.com/fwlink/?linkid=865972) to be easy to replicate to other models as well. The `.yml` files of each task can be seen in this [folder](release-tasks/qa/) and they can be used to create a *Pipeline* or a *Release Pipeline* (in this case just create an **Azure Cli Task** associated with the QA stage and add the code in `inlineScript` section of each `.yml` file).
 
 ![Stages](images/tasks-qa-stage.PNG?raw=true)
-
 
 ### Pre-deployment approval
 
@@ -86,7 +85,7 @@ Five tasks will be used:
 2. Download model from QA: `az ml model download`
 3. Register model to PROD: `az ml model register`
 4. Deploy model to PROD: `az ml model deploy`
-5. Check endpoint state : `az ml endpoint realtime show`
+5. Check endpoint state: `az ml endpoint realtime show`
 
 All set up 😃. Now we can configure the trigger to this **Release**.
 
@@ -96,7 +95,7 @@ We can use a **Continuous deployment trigger** to create a new release every tim
 
 ![Continuous deployment trigger](images/continuous-deployment.PNG?raw=true)
 
-When a new version of the model is registered in the Azure ML Workspace a new Release will be trigger:
+When a new version of the model is registered in the Azure ML Workspace a new Release will be triggered:
 
 ![New model](images/new-registered-model.PNG?raw=true)
 
@@ -104,7 +103,7 @@ When a new version of the model is registered in the Azure ML Workspace a new Re
 
 ![Waiting for approval](images/waiting-for-approval.PNG?raw=true)
 
-After the deployed succeded the approver will receive an email similar with this:
+After the deployed succeded the approver will receive an email similar to this:
 
 ![Approval notification](images/approver-notification.PNG?raw=true)
 
@@ -117,7 +116,6 @@ After the approval, the next stage **(deploy to Production)** will be triggered:
 When all the stages are completed we can see the **endpoints** in Azure ML Workspace:
 
 ![endpoints](images/ml-endpoints.PNG?raw=true)  
-  
   
 ![complete](images/final-release.PNG?raw=true)
 
