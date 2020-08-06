@@ -69,6 +69,8 @@ These tasks will use [Azure DevOps variables](https://go.microsoft.com/fwlink/?l
 We can add a Pre-deployment condition to be able to request approval before deploying to **Production** stage. It is useful to validate the **QA** endpoint before putting it on **Production**.
 
 Click on:
+
+
 ![Add Pre-Deployment condition](images/add-pre-deployment-condition.PNG?raw=true)
 
 To open the options to define one (or many) approvers:
