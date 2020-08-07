@@ -105,7 +105,7 @@ When a new version of the model is registered in the Azure ML Workspace a new Re
 
 ![Waiting for approval](images/waiting-for-approval.PNG?raw=true)
 
-After the deployed succeded the approver will receive an email similar to this:
+After the deplyment succeeded the approver will receive an email similar to this:
 
 ![Approval notification](images/approver-notification.PNG?raw=true)
 
