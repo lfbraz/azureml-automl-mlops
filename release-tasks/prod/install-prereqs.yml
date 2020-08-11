@@ -1,0 +1,8 @@
+steps:
+    - task: AzureCLI@2
+      displayName: 'Install pre reqs'
+      inputs:
+        azureSubscription: '<YOUR_SUBSCRIPTION>'
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: 'az extension add -n azure-cli-ml'

@@ -1,0 +1,5 @@
+MODEL_VERSION=$(az ml model list -n $MODEL_NAME_QA -g $RESOURCE_GROUP_QA -w $WORKSPACE_QA --query '[0].version')
+
+az ml model download -w $WORKSPACE_QA -g $RESOURCE_GROUP_QA -i $MODEL_NAME_QA:$MODEL_VERSION -v -t /home/vsts/work/model
+
+echo "Realizado Download do modelo: " $MODEL_NAME_QA " do Workspace:" $WORKSPACE_QA
