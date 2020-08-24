@@ -1,3 +1,2 @@
 az ml model register -n $MODEL_NAME_PROD --model-framework automl -p /home/vsts/work/model/model.pkl -w $WORKSPACE_PROD -g $RESOURCE_GROUP_PROD
  
-echo "Realizado Registro do modelo: " $MODEL_NAME_PROD " do Workspace:" $WORKSPACE_PROD
