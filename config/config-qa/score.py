@@ -22,7 +22,7 @@ def init():
     global model
     # This name is model.id of model that we want to deploy deserialize the model file back
     # into a sklearn model
-    model_path = Model.get_model_path(model_name = 'diabetes')
+    model_path = Model.get_model_path(model_name = 'diabetes-automl')
     model = joblib.load(model_path)
 
 
